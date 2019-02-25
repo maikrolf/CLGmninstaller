@@ -225,7 +225,7 @@ mv ./collegicoin-tx /usr/local/bin
 rm -rf $TARBALLNAME
 
 # Create collegicoincore directory
-mkdir $USERHOME/collegicoincore
+mkdir $USERHOME/.collegicoincore
 
 # Install bootstrap file
 if [[ ("$BOOTSTRAP" == "y" || "$BOOTSTRAP" == "Y" || "$BOOTSTRAP" == "") ]]; then
@@ -233,8 +233,8 @@ if [[ ("$BOOTSTRAP" == "y" || "$BOOTSTRAP" == "Y" || "$BOOTSTRAP" == "") ]]; the
 fi
 
 # Create collegicoin.conf
-touch $USERHOME/collegicoincore/collegicoin.conf
-cat > $USERHOME/collegicoincore/collegicoin.conf << EOL
+touch $USERHOME/.collegicoincore/collegicoin.conf
+cat > $USERHOME/.collegicoincore/collegicoin.conf << EOL
 ${INSTALLERUSED}
 rpcuser=${RPCUSER}
 rpcpassword=${RPCPASSWORD}
@@ -250,8 +250,8 @@ masternodeaddr=${IP}
 masternodeprivkey=${KEY}
 masternode=1
 EOL
-chmod 0600 $USERHOME/collegicoincorecore/collegicoin.conf
-chown -R $USER:$USER $USERHOME/collegicoincorecore
+chmod 0600 $USERHOME/.collegicoincore/collegicoin.conf
+chown -R $USER:$USER $USERHOME/.collegicoincore
 
 sleep 1
 
@@ -263,8 +263,8 @@ After=network.target
 Type=forking
 User=${USER}
 WorkingDirectory=${USERHOME}
-ExecStart=/usr/local/bin/collegicoind -conf=${USERHOME}/collegicoincorecore/collegicoin.conf -datadir=${USERHOME}/collegicoincore
-ExecStop=/usr/local/bin/collegicoin-cli -conf=${USERHOME}/collegicoincorecore/collegicoin.conf -datadir=${USERHOME}/collegicoincore stop
+ExecStart=/usr/local/bin/collegicoind -conf=${USERHOME}/.collegicoincore/collegicoin.conf -datadir=${USERHOME}/.collegicoincore
+ExecStop=/usr/local/bin/collegicoin-cli -conf=${USERHOME}/.collegicoincore/collegicoin.conf -datadir=${USERHOME}/.collegicoincore stop
 Restart=on-abort
 [Install]
 WantedBy=multi-user.target
